@@ -15,10 +15,10 @@ public class Client {
     public static void main(String[] args) {
         try {
             Socket socket = new Socket();
-            socket.connect(new InetSocketAddress("localhost", 8001));
+            socket.connect(new InetSocketAddress("127.0.0.1", 8001));
             InputStream inputStream = socket.getInputStream();
             OutputStream outputStream = socket.getOutputStream();
-            outputStream.write("Hello".getBytes());
+            outputStream.write("Hello\r\n".getBytes());
 
             byte[] bytes = new byte[1024];
             inputStream.read(bytes);

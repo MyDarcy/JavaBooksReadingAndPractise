@@ -11,6 +11,7 @@
     <modules>
         <module>NettyInAction</module>
         <module>Java8InAction</module>
+        <module>JavaPerformance</module>
     </modules>
 
     <dependencies>

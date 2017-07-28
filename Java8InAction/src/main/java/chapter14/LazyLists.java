@@ -83,6 +83,8 @@ public class LazyLists {
 
     static class LazyList<T> implements MyList<T> {
         final T head;
+        // 避免让tail立刻出现在内存中，而是提供一个Supplier<T>方法
+        // （你也可以将其看成一个使用函数描述符void -> T的工厂方法），它会产生列表的下一个节点。
         final Supplier<MyList<T>> tail;
 
         public LazyList(T head, Supplier<MyList<T>> tail) {
@@ -94,6 +96,7 @@ public class LazyLists {
             return head;
         }
 
+        // 调用Supplier的get方法会触发延迟列表（LazyList）的节点创建
         public MyList<T> tail() {
             return tail.get();
         }

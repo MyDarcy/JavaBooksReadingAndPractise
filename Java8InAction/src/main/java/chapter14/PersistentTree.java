@@ -69,14 +69,23 @@ public class PersistentTree {
         return t;
     }
 
+    /**
+     * 通过函数式的方式进行节点的更新：需要为新的键值对创建一个新的节点，除
+     * 此之外你还需要创建从树的根节点到新节点的路径上的所有节点。
+     * @param k
+     * @param newval
+     * @param t
+     * @return
+     */
     public static Tree fupdate(String k, int newval, Tree t) {
         return (t == null) ?
             new Tree(k, newval, null, null) :
-             k.equals(t.key) ?
-               new Tree(k, newval, t.left, t.right) :
-          k.compareTo(t.key) < 0 ?
-            new Tree(t.key, t.val, fupdate(k,newval, t.left), t.right) :
-            new Tree(t.key, t.val, t.left, fupdate(k,newval, t.right));
+                k.equals(t.key) ?
+                        new Tree(k, newval, t.left, t.right) :
+                        // 不等于key. 更新左右子树.
+                        k.compareTo(t.key) < 0 ?
+                             new Tree(t.key, t.val, fupdate(k,newval, t.left), t.right) :
+                             new Tree(t.key, t.val, t.left, fupdate(k,newval, t.right));
    }
 
 }

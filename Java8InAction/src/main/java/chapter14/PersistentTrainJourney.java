@@ -2,6 +2,11 @@ package chapter14;
 
 import java.util.function.Consumer;
 
+/**
+ * 函数式方法不允许修改任何全局数据结构或者任何作为参数传入的参数。为什么呢？
+ * 因为一旦对这些数据进行修改，两次相同的调用就很可能产生不同的
+ * 结构 -- 这违背了引用透明性原则，我们也就无法将方法简单地看作由参数到结果的映射。
+ */
 public class PersistentTrainJourney {
 
     public static void main(String[] args) {

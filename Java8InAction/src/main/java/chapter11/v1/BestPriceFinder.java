@@ -98,11 +98,15 @@ public class BestPriceFinder {
       // CompletableFuture so that it is compatible with the
       // CompletableFuture::join operation below.
       CompletableFuture<Double> futurePriceInUSD =
+          // 创建第一个任务查询商店取得商品的价格
           CompletableFuture.supplyAsync(() -> shop.getPrice(product))
+              // 没有使用异步版本的thenCombineAsync, 因为组合计算直接可以利用第二个获取完汇率的线程来执行．
               .thenCombine(
+                  // 因为不依赖于上一个CompletableFuture的值，所以不需要一个额外的Lambda，参见上一个例子,
+                  // 创建第二个独立任务，查询美元和欧元之间的转换汇率
                   CompletableFuture.supplyAsync(
                       () -> ExchangeService.getRate(ExchangeService.Money.EUR, ExchangeService.Money.USD)),
-                  (price, rate) -> price * rate
+                  (price, rate) -> price * rate // 组合计算.
               );
       priceFutures.add(futurePriceInUSD);
     }
@@ -117,19 +121,23 @@ public class BestPriceFinder {
   }
 
   public List<String> findPricesInUSDJava7(String product) {
+    // 创建一个ExecutorService将任务提交到线程池
     ExecutorService executor = Executors.newCachedThreadPool();
     List<Future<Double>> priceFutures = new ArrayList<>();
     for (Shop shop : shops) {
+      // 创建一个查询欧元到美元转换汇率的Future
       final Future<Double> futureRate = executor.submit(new Callable<Double>() {
         public Double call() {
           return ExchangeService.getRate(ExchangeService.Money.EUR, ExchangeService.Money.USD);
         }
       });
+
+      // 在第二个Future中查询指定商店中特定商品的价格
       Future<Double> futurePriceInUSD = executor.submit(new Callable<Double>() {
         public Double call() {
           try {
             double priceInEUR = shop.getPrice(product);
-            return priceInEUR * futureRate.get();
+            return priceInEUR * futureRate.get(); // 在同一个线程中进行计算.
           } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e.getMessage(), e);
           }
@@ -140,14 +148,13 @@ public class BestPriceFinder {
     List<String> prices = new ArrayList<>();
     for (Future<Double> priceFuture : priceFutures) {
       try {
+        // 获取异步计算的结果.
         prices.add(/*shop.getName() +*/ " price is " + priceFuture.get());
       } catch (ExecutionException | InterruptedException e) {
         e.printStackTrace();
       }
     }
     return prices;
-
-
   }
 
 

@@ -4,6 +4,9 @@ package basic;
  * Author by darcy
  * Date on 17-9-7 下午9:44.
  * Description:
+ *
+ * finally中的语句块在return之前执行.
+ *
  */
 public class TryCatchFinallyReturn {
 
@@ -32,12 +35,14 @@ public class TryCatchFinallyReturn {
     int result = 1;
     try {
       result = 2;
+      // 执行return前先把result的值存储在一个指定的位置，然后再去执行finally块中的代码.
+      // 此时修改（(finaly中)）result的值（基本类型）将不会影响到程序的返回结果.
       return result;
     } catch (Exception e) {
       return 0;
     } finally {
       // finally中没有return语句.
-      // 改变基本类型的数据.
+      // 此时改变基本类型的数据并不影响返回值.
       result = 3;
       System.out.println("finally");
     }

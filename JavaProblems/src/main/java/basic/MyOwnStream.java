@@ -52,7 +52,7 @@ public class MyOwnStream extends FilterInputStream {
   public static void main(String[] args) {
     int c = 0;
     try {
-      InputStream input = new MyOwnStream(new BufferedInputStream(new StringBufferInputStream("aaaBBBcccDDD123")));
+      InputStream input = new MyOwnStream(new BufferedInputStream(/*new StringBufferInputStream("aaaBBBcccDDD123")*/ new FileInputStream("")));
       while ((c = input.read()) != -1) {
         System.out.print((char) c);
       }

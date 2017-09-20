@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<!--<bean id="greetingA" class="com.ioc.impl.GreetingServiceImpl">
+		<property name="greeting">
+			<value>hello A</value>
+		</property>
+		<property name="book">
+		<ref bean="book"/>
+		</property>
+	</bean>
+	<bean id="greetingB" class="com.ioc.impl.GreetingServiceImpl">
+		<constructor-arg>
+			<value>hello B</value>  
+		</constructor-arg>
+		<property name="book" ref="book"></property>
+	</bean>
+	<bean id="book"  class="com.ioc.Book"></bean>-->
+</beans>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+    <bean id="bookBean" class="com.ioc.bean.Book">
+	  <property name="bookName">
+			<value>Think in java 1234</value>
+	  </property>
+	</bean>
+	<bean id="userBean" class="com.ioc.bean.User">
+		<property name="userName">
+			<value>test测试</value>
+		</property>
+		<property name="password">
+			<value>12345678</value>
+		</property>
+		<property name="book" ref="bookBean"></property>
+	</bean>
+</beans> 

@@ -44,14 +44,14 @@ public class StreamUsage_2 {
             user.age = reader.nextInt(); //自动转换
             break;
           case "email":
-            user.emailAddress = reader.nextString();
+            user.email = reader.nextString();
             break;
         }
       }
       reader.endObject(); // throws IOException
       System.out.println(user.name);  // 怪盗kidou
       System.out.println(user.age);   // 24
-      System.out.println(user.emailAddress); // ikidou@example.com
+      System.out.println(user.email); // ikidou@example.com
     } catch (IOException e) {
       e.printStackTrace();
     }

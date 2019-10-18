@@ -15,6 +15,7 @@
         <module>RedisDevs</module>
         <module>JavaProblems</module>
         <module>JDKSourceCode</module>
+        <module>Programming-In-Scala</module>
     </modules>
 
     <properties>

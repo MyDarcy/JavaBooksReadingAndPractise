@@ -31,3 +31,9 @@ out/
 *.iml
 
 target/
+
+*.dat
+*.txt
+
+*.DS_Store
+

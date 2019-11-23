@@ -16,6 +16,7 @@
         <module>JavaProblems</module>
         <module>JDKSourceCode</module>
         <module>Programming-In-Scala</module>
+        <module>scala-snippet</module>
     </modules>
 
     <properties>

@@ -65,7 +65,7 @@
         <commons-io.version>2.6</commons-io.version>
         <commons-codec.version>1.15</commons-codec.version>
         <commons-collections4.version>4.4</commons-collections4.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <log4j.version>1.2.17</log4j.version>
         <jedis.version>2.9.0</jedis.version>
         <protostuff.version>1.1.2</protostuff.version>

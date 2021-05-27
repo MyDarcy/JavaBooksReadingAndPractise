@@ -1,0 +1,76 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.darcy</groupId>
+  <artifactId>zgc-design-impl</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>zgc-design-impl</name>
+  <url>http://maven.apache.org</url>
+
+
+  <properties>
+    <java.version>11</java.version>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+    <maven.compiler.compilerVersion>11</maven.compiler.compilerVersion>
+
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
+    <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+    <maven-assembly-plugin.version>3.2.0</maven-assembly-plugin.version>
+    <maven-source-plugin.version>3.2.0</maven-source-plugin.version>
+
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
+        <configuration>
+          <release>11</release>  <!--or <release>10</release>-->
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <configuration>
+          <outputDirectory>${project.build.directory}/lib</outputDirectory>
+          <excludeTransitive>false</excludeTransitive>
+          <stripVersion>false</stripVersion>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>${maven-source-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- 资源插件 -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>${maven-resources-plugin.version}</version>
+        <configuration>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+
+    </plugins>
+  </build>
+
+</project>

@@ -28,7 +28,7 @@ public class ProducerConsumerDemo {
 					notFull.await();
 				}
 				queue.add(e);
-				notEmpty.signal();	
+				notEmpty.signalAll();
 			}finally{
 				lock.unlock();
 			}
@@ -42,7 +42,7 @@ public class ProducerConsumerDemo {
 					notEmpty.await();
 				}
 				E e = queue.poll();
-				notFull.signal();
+				notFull.signalAll();
 				return e;	
 			}finally{
 				lock.unlock();

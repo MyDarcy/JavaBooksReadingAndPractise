@@ -19,8 +19,10 @@ public class ThreadTestDemo {
 
     public static void test() throws InterruptedException {
 
-        ThreadPoolExecutor executorService = new ThreadPoolExecutor(2, 3, 30, TimeUnit.SECONDS,
-                new LinkedBlockingQueue<>(2), new MyThreadFactory("test"), new ThreadPoolExecutor.DiscardPolicy());
+//        BlockingQueue<Runnable> blockingQueue = new LinkedBlockingQueue<>(2);
+        BlockingQueue<Runnable> blockingQueue = new SynchronousQueue<Runnable>(false);
+        ThreadPoolExecutor executorService = new ThreadPoolExecutor(2, 10, 120, TimeUnit.SECONDS,
+                blockingQueue, new MyThreadFactory("test"), new ThreadPoolExecutor.DiscardPolicy());
 
         //每隔两秒打印线程池的信息
         ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
@@ -35,7 +37,7 @@ public class ThreadTestDemo {
 
         try {
             //同时提交5个任务,模拟达到最大线程数
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 12; i++) {
                 executorService.execute(new Task());
             }
         } catch (Exception e) {
@@ -46,7 +48,7 @@ public class ThreadTestDemo {
 
         //每隔3秒提交一个任务，每个任务执行耗时1s
         while (true) {
-            Thread.sleep(3000);
+            Thread.sleep(2500);
             executorService.submit(new Task());
         }
     }
@@ -162,4 +164,216 @@ ActiveCount:0
 KeepAliveTime:30
 QueueSize:0
 Thread[test-thread-1,5,test]-执行任务
+ */
+
+
+
+/* 2 8 2
+=====================================thread-pool-info:Wed Jan 05 14:07:29 CST 2022=====================================
+CorePoolSize:2
+PoolSize:8
+ActiveCount:8
+KeepAliveTime:33
+QueueSize:2
+Thread[test-thread-1,5,test]-执行任务
+Thread[test-thread-2,5,test]-执行任务
+Thread[test-thread-4,5,test]-执行任务
+Thread[test-thread-5,5,test]-执行任务
+Thread[test-thread-8,5,test]-执行任务
+Thread[test-thread-6,5,test]-执行任务
+Thread[test-thread-3,5,test]-执行任务
+Thread[test-thread-7,5,test]-执行任务
+=====================================thread-pool-info:Wed Jan 05 14:07:31 CST 2022=====================================
+CorePoolSize:2
+PoolSize:8
+ActiveCount:2
+KeepAliveTime:33
+QueueSize:0
+Thread[test-thread-2,5,test]-执行任务
+Thread[test-thread-1,5,test]-执行任务
+=====================================thread-pool-info:Wed Jan 05 14:07:33 CST 2022=====================================
+CorePoolSize:2
+PoolSize:8
+ActiveCount:0
+KeepAliveTime:33
+QueueSize:0
+=====================================thread-pool-info:Wed Jan 05 14:07:35 CST 2022=====================================
+CorePoolSize:2
+PoolSize:8
+ActiveCount:0
+KeepAliveTime:33
+QueueSize:0
+=====================================thread-pool-info:Wed Jan 05 14:07:37 CST 2022=====================================
+CorePoolSize:2
+PoolSize:8
+ActiveCount:0
+KeepAliveTime:33
+QueueSize:0
+=====================================thread-pool-info:Wed Jan 05 14:07:39 CST 2022=====================================
+CorePoolSize:2
+PoolSize:8
+ActiveCount:0
+KeepAliveTime:33
+QueueSize:0
+=====================================thread-pool-info:Wed Jan 05 14:07:41 CST 2022=====================================
+CorePoolSize:2
+PoolSize:8
+ActiveCount:0
+KeepAliveTime:33
+QueueSize:0
+=====================================thread-pool-info:Wed Jan 05 14:07:43 CST 2022=====================================
+CorePoolSize:2
+PoolSize:8
+ActiveCount:1
+KeepAliveTime:33
+QueueSize:0
+Thread[test-thread-4,5,test]-执行任务
+=====================================thread-pool-info:Wed Jan 05 14:07:45 CST 2022=====================================
+CorePoolSize:2
+PoolSize:8
+ActiveCount:0
+KeepAliveTime:33
+QueueSize:0
+Thread[test-thread-5,5,test]-执行任务
+=====================================thread-pool-info:Wed Jan 05 14:07:47 CST 2022=====================================
+CorePoolSize:2
+PoolSize:8
+ActiveCount:0
+KeepAliveTime:33
+QueueSize:0
+=====================================thread-pool-info:Wed Jan 05 14:07:49 CST 2022=====================================
+CorePoolSize:2
+PoolSize:8
+ActiveCount:1
+KeepAliveTime:33
+QueueSize:0
+Thread[test-thread-8,5,test]-执行任务
+=====================================thread-pool-info:Wed Jan 05 14:07:51 CST 2022=====================================
+CorePoolSize:2
+PoolSize:8
+ActiveCount:0
+KeepAliveTime:33
+QueueSize:0
+Thread[test-thread-6,5,test]-执行任务
+=====================================thread-pool-info:Wed Jan 05 14:07:53 CST 2022=====================================
+CorePoolSize:2
+PoolSize:8
+ActiveCount:0
+KeepAliveTime:33
+QueueSize:0
+=====================================thread-pool-info:Wed Jan 05 14:07:55 CST 2022=====================================
+CorePoolSize:2
+PoolSize:8
+ActiveCount:1
+KeepAliveTime:33
+QueueSize:0
+Thread[test-thread-3,5,test]-执行任务
+=====================================thread-pool-info:Wed Jan 05 14:07:57 CST 2022=====================================
+CorePoolSize:2
+PoolSize:8
+ActiveCount:0
+KeepAliveTime:33
+QueueSize:0
+Thread[test-thread-7,5,test]-执行任务
+=====================================thread-pool-info:Wed Jan 05 14:07:59 CST 2022=====================================
+CorePoolSize:2
+PoolSize:8
+ActiveCount:0
+KeepAliveTime:33
+QueueSize:0
+=====================================thread-pool-info:Wed Jan 05 14:08:01 CST 2022=====================================
+CorePoolSize:2
+PoolSize:8
+ActiveCount:1
+KeepAliveTime:33
+QueueSize:0
+Thread[test-thread-2,5,test]-执行任务
+=====================================thread-pool-info:Wed Jan 05 14:08:03 CST 2022=====================================
+CorePoolSize:2
+PoolSize:8
+ActiveCount:0
+KeepAliveTime:33
+QueueSize:0
+Thread[test-thread-1,5,test]-执行任务
+=====================================thread-pool-info:Wed Jan 05 14:08:05 CST 2022=====================================
+CorePoolSize:2
+PoolSize:8
+ActiveCount:0
+KeepAliveTime:33
+QueueSize:0
+=====================================thread-pool-info:Wed Jan 05 14:08:07 CST 2022=====================================
+CorePoolSize:2
+PoolSize:8
+ActiveCount:1
+KeepAliveTime:33
+QueueSize:0
+Thread[test-thread-4,5,test]-执行任务
+=====================================thread-pool-info:Wed Jan 05 14:08:09 CST 2022=====================================
+CorePoolSize:2
+PoolSize:8
+ActiveCount:0
+KeepAliveTime:33
+QueueSize:0
+Thread[test-thread-5,5,test]-执行任务
+=====================================thread-pool-info:Wed Jan 05 14:08:11 CST 2022=====================================
+CorePoolSize:2
+PoolSize:8
+ActiveCount:0
+KeepAliveTime:33
+QueueSize:0
+=====================================thread-pool-info:Wed Jan 05 14:08:13 CST 2022=====================================
+CorePoolSize:2
+PoolSize:8
+ActiveCount:1
+KeepAliveTime:33
+QueueSize:0
+Thread[test-thread-8,5,test]-执行任务
+=====================================thread-pool-info:Wed Jan 05 14:08:15 CST 2022=====================================
+CorePoolSize:2
+PoolSize:8
+ActiveCount:0
+KeepAliveTime:33
+QueueSize:0
+Thread[test-thread-6,5,test]-执行任务
+=====================================thread-pool-info:Wed Jan 05 14:08:17 CST 2022=====================================
+CorePoolSize:2
+PoolSize:8
+ActiveCount:0
+KeepAliveTime:33
+QueueSize:0
+=====================================thread-pool-info:Wed Jan 05 14:08:19 CST 2022=====================================
+CorePoolSize:2
+PoolSize:8
+ActiveCount:1
+KeepAliveTime:33
+QueueSize:0
+Thread[test-thread-3,5,test]-执行任务
+=====================================thread-pool-info:Wed Jan 05 14:08:21 CST 2022=====================================
+CorePoolSize:2
+PoolSize:8
+ActiveCount:0
+KeepAliveTime:33
+QueueSize:0
+Thread[test-thread-7,5,test]-执行任务
+=====================================thread-pool-info:Wed Jan 05 14:08:23 CST 2022=====================================
+CorePoolSize:2
+PoolSize:8
+ActiveCount:0
+KeepAliveTime:33
+QueueSize:0
+=====================================thread-pool-info:Wed Jan 05 14:08:25 CST 2022=====================================
+CorePoolSize:2
+PoolSize:8
+ActiveCount:1
+KeepAliveTime:33
+QueueSize:0
+Thread[test-thread-2,5,test]-执行任务
+=====================================thread-pool-info:Wed Jan 05 14:08:27 CST 2022=====================================
+CorePoolSize:2
+PoolSize:8
+ActiveCount:0
+KeepAliveTime:33
+QueueSize:0
+Thread[test-thread-1,5,test]-执行任务
+=====================================thread-pool-info:Wed Jan 05 14:08:29 CST 2022====================================
  */

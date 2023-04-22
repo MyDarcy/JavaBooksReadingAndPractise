@@ -22,6 +22,7 @@
         <module>program-logic</module>
         <module>zgc-design-impl</module>
         <module>java-practise</module>
+        <module>java-tools</module>
     </modules>
 
 <!--    <repositories>-->
